@@ -2,6 +2,9 @@ import fri.shapesge.Kruh;
 import fri.shapesge.Obdlznik;
 import fri.shapesge.Obrazok;
 
+/**
+ * Predstavuje objekt clovek
+ */
 public class Clovek extends AktivnyPrvokMapy {
     private Obdlznik obdlznik;
     private Dom dom;
@@ -9,6 +12,12 @@ public class Clovek extends AktivnyPrvokMapy {
     private Logika logika;
     private Obrazok face;
 
+    /**
+     * Inicializacia jednotlivych objektov, z ktorych sa postava sklada
+     * @param poziciaX
+     * @param poziciaY
+     * @param dom
+     */
     public Clovek(int poziciaX, int poziciaY, Dom dom) {
         super(poziciaX, poziciaY, 20, 50, "clovek", 1);
         this.dom = dom;
@@ -19,10 +28,15 @@ public class Clovek extends AktivnyPrvokMapy {
         this.obdlznik = new Obdlznik(super.getPoziciaX() , super.getPoziciaY() + super.getSirka());
         this.obdlznik.zmenStrany(super.getSirka(), super.getVyska());
         this.obdlznik.zobraz();
-        this.face = new Obrazok("src/sad.png", poziciaX, poziciaY);
+        this.face = new Obrazok("src/happy.png", poziciaX, poziciaY);
         this.face.zobraz();
         this.logika = new Logika(this, this.dom);
     }
+
+    /**
+     * posuvame cloveka o danu hodnotu, hlavne pri pohybe
+     * @param posun
+     */
 
     public void posunX(int posun) {
         this.hlava.posunVodorovne(posun);
@@ -30,6 +44,28 @@ public class Clovek extends AktivnyPrvokMapy {
         this.face.posunVodorovne(posun);
         super.setPoziciaX(super.getPoziciaX() + posun);
     }
+
+    /**
+     * Posuvame cloveka o danu hodnotu, hlavne pri vyuzivani dveri
+     * @param posun
+     */
+
+    public void posunY(int posun) {
+        this.obdlznik.skry();
+        this.face.skry();
+        this.hlava.skry();
+        this.face.posunZvisle(posun);
+        this.obdlznik.posunZvisle(posun);
+        this.hlava.posunZvisle(posun);
+        super.setPoziciaY(super.getPoziciaY() + posun);
+        this.obdlznik.zobraz();
+        this.hlava.zobraz();
+        this.face.zobraz();
+    }
+
+    /**
+     * pre kazdeho cloveka zapne logiku
+     */
 
     public void rozmyslaj() {
         this.logika.rozmyslaj();

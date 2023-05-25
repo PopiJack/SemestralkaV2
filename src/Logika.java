@@ -3,6 +3,9 @@ import fri.shapesge.Text;
 
 import java.util.Random;
 
+/**
+ * Trieda predstavuje hlavnu logiku hry
+ */
 public class Logika {
     private Clovek clovek;
     private Dom dom;
@@ -12,8 +15,14 @@ public class Logika {
     private Smer[] smery;
     private Random nahoda;
     private Random nahoda1;
+    private Random nahoda2;
     private int rychlost;
 
+    /**
+     * Inicializacia
+     * @param clovek
+     * @param dom
+     */
     public Logika(Clovek clovek, Dom dom) {
         this.clovek = clovek;
         this.dom = dom;
@@ -25,9 +34,14 @@ public class Logika {
         this.smery[1] = Smer.DOPRAVA;
         this.nahoda = new Random();
         this.nahoda1 = new Random();
+        this.nahoda2 = new Random();
         this.rychlost = 3;
         this.rozmyslaj();
     }
+
+    /**
+     * Metoda ovlada kazdeho cloveka na zaklade relativnej pozicie cloveka a domu
+     */
 
     public void rozmyslaj() {
         var koniec = false;
@@ -51,6 +65,11 @@ public class Logika {
                         } else {
                             smer = Smer.DOLAVA;
                         }
+                    } else if (this.dom.getPrvok(j) instanceof Dvere) {
+                        var poschodie = this.dom.getPoschodie(this.nahoda2.nextInt(this.dom.getPocetPoschodi() ));
+                        var posun = poschodie.getMinVyska() - this.clovek.getPoziciaY();
+                        this.clovek.posunY(posun);
+                        this.clovek.posunX(10);
                     }
                     var text = new Text(this.dom.getPrvok(j).getNazov(), 10, 100);
                     text.zobraz();
