@@ -30,7 +30,7 @@ public class Logika {
     }
 
     public void rozmyslaj() {
-        var nekonecno = true;
+        var koniec = false;
         var pozicia = this.nahoda.nextInt(2);
         var smer = this.smery[pozicia];
         var vzdialenost = this.nahoda1.nextInt(10);
@@ -45,11 +45,19 @@ public class Logika {
             }
             for (int j = 0; j < this.dom.getPocetPrvkov(); j++) {
                 if (this.manazerK.kolizia(this.clovek, this.dom.getPrvok(j))) {
+                    if (this.dom.getPrvok(j)instanceof Stena) {
+                        if (this.dom.getPrvok(j).getPoziciaX() <= this.clovek.getPoziciaX()) {
+                            smer = Smer.DOPRAVA;
+                        } else {
+                            smer = Smer.DOLAVA;
+                        }
+                    }
                     var text = new Text(this.dom.getPrvok(j).getNazov(), 10, 100);
                     text.zobraz();
                     break;
                 }
             }
+
 
             this.clovek.posunX(smer.getKoeficient() * this.rychlost);
             this.manazer.prestanSpravovatObjekt(this.casovac);
