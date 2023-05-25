@@ -1,4 +1,5 @@
 import fri.shapesge.Manazer;
+import fri.shapesge.Text;
 
 import java.util.Random;
 
@@ -11,6 +12,7 @@ public class Logika {
     private Smer[] smery;
     private Random nahoda;
     private Random nahoda1;
+    private int rychlost;
 
     public Logika(Clovek clovek, Dom dom) {
         this.clovek = clovek;
@@ -23,33 +25,34 @@ public class Logika {
         this.smery[1] = Smer.DOPRAVA;
         this.nahoda = new Random();
         this.nahoda1 = new Random();
+        this.rychlost = 3;
         this.rozmyslaj();
     }
 
     public void rozmyslaj() {
         var nekonecno = true;
-        while (nekonecno) {
-
-            var pozicia = this.nahoda.nextInt(2);
-            var smer = this.smery[pozicia];
-            var vzdialenost = this.nahoda1.nextInt(10);
-
-            for (int i = 0; i < vzdialenost; i++) {
-                this.manazer.spravujObjekt(this.casovac);
-                while (!this.casovac.koniec(1)) {
-                    System.out.println(this.clovek.getPoziciaX() + "," + this.clovek.getPoziciaY());
-                    System.out.println(this.dom.getKonkretnuIzbu(0).getPoziciaX() + "," + this.dom.getKonkretnuIzbu(0).getPoziciaY());
-                }
-                this.clovek.posunX(smer.getKoeficient() * 5);
-                this.manazer.prestanSpravovatObjekt(this.casovac);
-                this.casovac.setSekundy(0);
-                for (int j = 0; j < this.dom.getPocetIzieb(); j++) {
-                    if (this.manazerK.kolizia(this.dom.getKonkretnuIzbu(j), this.clovek)) {
-                        System.out.println(this.dom.getKonkretnuIzbu(j).getNazov());
-                        break;
-                    }
+        var pozicia = this.nahoda.nextInt(2);
+        var smer = this.smery[pozicia];
+        var vzdialenost = this.nahoda1.nextInt(10);
+        for (int i = 0; i < vzdialenost; i++) {
+            this.manazer.spravujObjekt(this.casovac);
+            while (!this.casovac.koniec(1)) {
+                System.out.println(this.dom.getKonkretnuIzbu(0).getPoziciaX() + "+" + this.dom.getKonkretnuIzbu(0).getSirka()  + ">="  + this.clovek.getPoziciaX());
+                System.out.println(this.dom.getKonkretnuIzbu(0).getPoziciaX() + "<=" + this.clovek.getPoziciaX() + "+" + this.clovek.getSirka());
+                System.out.println(this.dom.getKonkretnuIzbu(0).getPoziciaY() + "+" + this.dom.getKonkretnuIzbu(0).getVyska() + ">=" + this.clovek.getPoziciaY());
+                System.out.println(this.dom.getKonkretnuIzbu(0).getPoziciaY() + "<=" + this.clovek.getPoziciaY() + "+" + this.clovek.getVyska());
+                System.out.println("---------------------------------------------------------------");
+            }
+            for (int j = 0; j < this.dom.getPocetIzieb(); j++) {
+                if (this.manazerK.kolizia(this.clovek, this.dom.getKonkretnuIzbu(j))) {
+                    var text = new Text(this.dom.getKonkretnuIzbu(j).getNazov(), 10, 100);
+                    text.zobraz();
+                    break;
                 }
             }
+            this.clovek.posunX(smer.getKoeficient() * this.rychlost);
+            this.manazer.prestanSpravovatObjekt(this.casovac);
+            this.casovac.setSekundy(0);
         }
 
 
