@@ -1,3 +1,4 @@
+import fri.shapesge.Manazer;
 import fri.shapesge.Obdlznik;
 
 import java.util.ArrayList;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 public class Izba extends AktivnyPrvokMapy {
     private Obdlznik obdlznik;
     private boolean jeTma;
+    private Casovac casovac;
+    private Manazer manazer;
 
     private ArrayList<AktivnyPrvokMapy> predmety;
 
@@ -25,8 +28,9 @@ public class Izba extends AktivnyPrvokMapy {
         this.obdlznik = new Obdlznik(super.getPoziciaX(), super.getPoziciaY());
         this.obdlznik.zmenStrany(super.getSirka(), super.getVyska());
         this.obdlznik.zmenFarbu("black");
-        this.obdlznik.zobraz();
         this.predmety = new ArrayList<>();
+        this.casovac = new Casovac();
+        this.manazer = new Manazer();
     }
 
     /**
@@ -36,6 +40,12 @@ public class Izba extends AktivnyPrvokMapy {
     public void vypniSvetlo() {
         this.jeTma = true;
         this.obdlznik.zobraz();
+        this.manazer.spravujObjekt(this.casovac);
+        while(!this.casovac.koniec(2)){
+            System.out.println("");
+        }
+        this.casovac.setSekundy(0);
+        this.zapniSvetlo();
     }
 
     /**
@@ -65,5 +75,34 @@ public class Izba extends AktivnyPrvokMapy {
 
     public AktivnyPrvokMapy getKonkretnyPrvokIzby(int index) {
         return this.predmety.get(index);
+    }
+
+    /**
+     * vrati, ci je v izbe tma, alebo svetlo
+     * @return
+     */
+    public boolean getSvetlo() {
+        return this.jeTma;
+    }
+
+    /**
+     * posunie po osi X
+     * @param posun
+     */
+    @Override
+    public void posunX(int posun) {
+        this.obdlznik.posunVodorovne(posun);
+        super.setPoziciaX(super.getPoziciaX() + posun);
+    }
+
+    /**
+     * posuni po osi Y
+     * @param posun
+     */
+
+    @Override
+    public void posunY(int posun) {
+        this.obdlznik.posunZvisle(posun);
+        super.setPoziciaY(super.getPoziciaY() + posun);
     }
 }

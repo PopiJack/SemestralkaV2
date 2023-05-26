@@ -116,6 +116,11 @@ public abstract class AktivnyPrvokMapy {
         this.nazov = nazov;
     }
 
+    public abstract void posunX(int posun);
+    public abstract void posunY(int posun);
+
+
+
 
 
 }

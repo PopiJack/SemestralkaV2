@@ -1,28 +1,32 @@
+import fri.shapesge.Manazer;
+
 import java.util.ArrayList;
 
 /**
  * Zabezpecuje ze hra prebieha, dokym ju nevyhrame
  */
 public class HernyLoop {
-    private ArrayList<Clovek> ludia;
+    private boolean funguje;
+    private Duch duch;
+    private Mapa mapa;
+    private Ovladanie ovladanie;
+    private Manazer manazer;
 
     /**
      * Inicializacia
      */
-    public HernyLoop() {
-        Dom dom = new Dom(100, 50);
-        int pocetLudi = 30;
-        boolean koniec = false;
-        this.ludia = new ArrayList<>();
-        Clovek clovek = null;
-        for (int i = 0; i < pocetLudi; i++) {
-            clovek = new Clovek(500, 300, dom);
-            this.ludia.add(clovek);
-        }
-        while (!koniec) {
-            for (Clovek clovek1 : this.ludia) {
-                clovek1.rozmyslaj();
-            }
+    public HernyLoop(Duch duch, Mapa mapa) {
+        this.duch = duch;
+        this.mapa = mapa;
+        this.funguje = true;
+        boolean koniec = true;
+        this.manazer = new Manazer();
+        this.ovladanie = new Ovladanie(this.mapa, this.duch);
+        this.manazer.spravujObjekt(this.ovladanie);
+
+
+        while (this.funguje) {
+            mapa.zapniLudi();
         }
 
     }

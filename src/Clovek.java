@@ -28,7 +28,7 @@ public class Clovek extends AktivnyPrvokMapy {
         this.obdlznik = new Obdlznik(super.getPoziciaX() , super.getPoziciaY() + super.getSirka());
         this.obdlznik.zmenStrany(super.getSirka(), super.getVyska());
         this.obdlznik.zobraz();
-        this.face = new Obrazok("src/happy.png", poziciaX, poziciaY);
+        this.face = new Obrazok("Pictures/Faces/happy.png", poziciaX, poziciaY);
         this.face.zobraz();
         this.logika = new Logika(this, this.dom);
     }
@@ -69,6 +69,14 @@ public class Clovek extends AktivnyPrvokMapy {
 
     public void rozmyslaj() {
         this.logika.rozmyslaj();
+    }
+
+    /**
+     * Zmeni obrazok
+     */
+
+    public void zmenObrazok(String novaCesta) {
+        this.face.zmenObrazok(novaCesta);
     }
 
 }

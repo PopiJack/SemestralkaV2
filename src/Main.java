@@ -4,6 +4,8 @@ public class Main {
      * @param args
      */
     public static void main(String[] args) {
-        HernyLoop hra = new HernyLoop();
+        Mapa mapa = new Mapa();
+        Duch duch = new Duch(720,360,180,180,"duch", 3);
+        HernyLoop hra = new HernyLoop(duch, mapa);
     }
 }

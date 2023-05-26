@@ -2,10 +2,10 @@
  * Trieda predstavuje jednotlive umiestnenia poschodi na mape
  */
 public enum Poschodie {
-    POSCHODIE0(300, 250, "Poschodie0"),
-    POSCHODIE1(200, 200, "Poschodie1"),
-    POSCHODIE2(100, 150, "Poschodie2"),
-    POSCHODIE3(0, 100, "Poschodie3");
+    POSCHODIE0(2000, 1600, "Poschodie0"),
+    POSCHODIE1(1580, 1180, "Poschodie1"),
+    POSCHODIE2(1140, 740, "Poschodie2"),
+    POSCHODIE3(645, 245, "Poschodie3");
 
     private int minVyska;
     private int maxVyska;

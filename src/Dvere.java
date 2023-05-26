@@ -21,4 +21,26 @@ public class Dvere extends AktivnyPrvokMapy {
         this.obdlznik.zmenFarbu("brown");
         this.obdlznik.zobraz();
     }
+
+    /**
+     * posuniem o posun
+     * @param posun
+     */
+
+    @Override
+    public void posunX(int posun) {
+        this.obdlznik.posunVodorovne(posun);
+        super.setPoziciaX(super.getPoziciaX() + posun);
+    }
+
+    /**
+     * posuniem na poziciiY o posun
+     * @param posun
+     */
+
+    @Override
+    public void posunY(int posun) {
+        this.obdlznik.posunZvisle(posun);
+        super.setPoziciaY(super.getPoziciaY() + posun);
+    }
 }

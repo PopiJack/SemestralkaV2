@@ -20,4 +20,24 @@ public class Stena extends AktivnyPrvokMapy {
         this.obdlznik.zmenFarbu("red");
         this.obdlznik.zobraz();
     }
+
+    /**
+     * posuvame o danu hodnotu po danej osy
+     * @param posun
+     */
+    @Override
+    public void posunX(int posun) {
+        this.obdlznik.posunVodorovne(posun);
+        super.setPoziciaX(super.getPoziciaX() + posun);
+    }
+
+    /**
+     * posuvame o danu hodnotu po danej osy
+     * @param posun
+     */
+    @Override
+    public void posunY(int posun) {
+        this.obdlznik.posunZvisle(posun);
+        super.setPoziciaY(super.getPoziciaY() + posun);
+    }
 }
